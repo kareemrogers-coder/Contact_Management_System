@@ -24,7 +24,6 @@ def add_on(contacts):
     email_info = input("Please enter your email address: ")
     contacts.append({"Name": name, "Phone Number": formatted_phone_num, "Email Address": email_info})
     con_database(contacts)
-    # print(contacts)
 
 def back_up():
     contact_list =[]
@@ -37,21 +36,16 @@ def back_up():
                 contact_list.append({"Name": name, "Phone Number": phone_num, "Email Address": email_info})
             else:
                 print(f"Skipping invalid line: {line}")
-            # data = re.search(r"([\w\s]+), ([\d{3}]-[\d{3}]-[\d{4}]), ([\w.]+@[\w]+\.[\w]+)",line)
-            # name, phone_num, email_info = line.split(", ") # only take one argument
-            # contact_list.append({"Name": name, "Phone Number": phone_num, "Email Address": email_info})
     return contact_list
 
 def modify_contact(contacts):
     view_contacts(contacts)
-    option = int(input("Which contact you would like to modify. "))
-    contact = contacts.replace
     pass
 
 
 def rem_contact(contacts):
     view_contacts(contacts)
-    option = int(input("Please select contact you would like to remove "))
+    option = int(input("Please select contact you would like to remove? "))
     contact = contacts.pop(option-1)
     print(f"{contact['Name']} was removed! ")
     con_database(contacts)
@@ -59,8 +53,6 @@ def rem_contact(contacts):
 def view_contacts(contacts):
     for index, contact in enumerate(contacts):
         print(f"{index + 1} {contact['Name']} {contact['Phone Number']} {contact['Email Address']}")
-
-
 
 def main_menu():
     flag = True
@@ -79,15 +71,13 @@ Select from the following features:
     ''')
     
 
-        if ans == "1": # this can be join with 7 (I can add a contact and have it import from a text file)
+        if ans == "1":
             add_on(contact_list)
-        elif ans == "2": #bonus question
-            pass
+        elif ans == "2": 
+            modify_contact(contact_list)
         elif ans == "3":
             rem_contact(contact_list)
-        # elif ans == "4": # bonus question
-        #     pass
-        elif ans == "4": # this can be join with 6 (I can display the contact and have it export from a text file)
+        elif ans == "4": 
             view_contacts(contact_list)
         elif ans == "5":
             print("Exiting System")
