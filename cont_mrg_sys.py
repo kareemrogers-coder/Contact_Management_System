@@ -1,4 +1,12 @@
 
+
+
+###### MODULE 3: MINI-PROJECT| CONTACT MANAGEMENT SYSTEMS
+
+
+
+
+
 import re
 
 def con_database(contacts):
@@ -8,9 +16,13 @@ def con_database(contacts):
 
 def add_on(contacts):
     name = input ("Please enter your full name: ")
-    phone_num = int(input("Please enter your Phone Number: "))
+    phone_num = input("Please enter your Phone Number: ")
+    if len(phone_num) == 10:
+        formatted_phone_num = f"{phone_num[:3]}-{phone_num[3:6]}-{phone_num[6:]}"
+    else:
+        return "invlaid entry"
     email_info = input("Please enter your email address: ")
-    contacts.append({"Name": name, "Phone Number": phone_num, "Email Address": email_info})
+    contacts.append({"Name": name, "Phone Number": formatted_phone_num, "Email Address": email_info})
     con_database(contacts)
     # print(contacts)
 
@@ -18,13 +30,24 @@ def back_up():
     contact_list =[]
     with open('Contacts_list.txt', 'r') as file:
         for line in file:
+            line = line.strip()
+            parts = line.split(", ")
+            if len(parts) == 3:
+                name, phone_num, email_info = parts
+                contact_list.append({"Name": name, "Phone Number": phone_num, "Email Address": email_info})
+            else:
+                print(f"Skipping invalid line: {line}")
             # data = re.search(r"([\w\s]+), ([\d{3}]-[\d{3}]-[\d{4}]), ([\w.]+@[\w]+\.[\w]+)",line)
-            name, phone_num, email_info = line.split(", ") # only take one argument
-            contact_list.append({"Name": name, "Phone Number": phone_num, "Email Address": email_info})
+            # name, phone_num, email_info = line.split(", ") # only take one argument
+            # contact_list.append({"Name": name, "Phone Number": phone_num, "Email Address": email_info})
     return contact_list
 
 def modify_contact(contacts):
+    view_contacts(contacts)
+    option = int(input("Which contact you would like to modify. "))
+    contact = contacts.replace
     pass
+
 
 def rem_contact(contacts):
     view_contacts(contacts)
@@ -50,30 +73,23 @@ Select from the following features:
                 
 1 - Add a new contact. 
 2 - Edit an existing contact.
-3 - Delete a contact.
-4 - Search for a contact. 
-5 - Display all contacts.
-6 - Export contacts to a text file.
-7 - Import contacts from a text file.
-8 - Quit.
+3 - Delete a contact. 
+4 - Display all contacts.
+5 - Quit.
     ''')
     
 
         if ans == "1": # this can be join with 7 (I can add a contact and have it import from a text file)
             add_on(contact_list)
-        elif ans == "2":
+        elif ans == "2": #bonus question
             pass
         elif ans == "3":
             rem_contact(contact_list)
-        elif ans == "4": # bonus question
-            pass
-        elif ans == "5": # this can be join with 6 (I can display the contact and have it export from a text file)
-            view_contacts(contact_list)
-        # elif ans == "6":
+        # elif ans == "4": # bonus question
         #     pass
-        # elif ans == "7":
-            # pass
-        elif ans == "8":
+        elif ans == "4": # this can be join with 6 (I can display the contact and have it export from a text file)
+            view_contacts(contact_list)
+        elif ans == "5":
             print("Exiting System")
             break
         else:
